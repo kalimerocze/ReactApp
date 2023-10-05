@@ -1,0 +1,16 @@
+﻿<configuration>
+	<system.webServer>
+		<httpProtocol>
+			<customHeaders>
+				<add name="Access-Control-Allow-Origin" value="https://localhost:44418" />
+				<add name="Access-Control-Allow-Methods" value="POST, GET, OPTIONS, PUT, DELETE" />
+				<add name="Access-Control-Allow-Headers" value="Content-Type" />
+
+				<add name="Access-Control-Allow-Credentials" value="true" />
+			</customHeaders>
+		</httpProtocol>
+		  <modules>
+      <add name="HandleOptions" type="namespace.OptionsModule" />
+    </modules>
+	</system.webServer>
+</configuration>

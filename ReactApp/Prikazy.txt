@@ -1,0 +1,13 @@
+﻿Add-Migration InitialConfig -Context ConfigDbContext -OutputDir Migrations\Config
+Update-Database -Context ConfigDbContext
+Add-Migration Groups -Context ConfigDbContext -OutputDir Migrations\Config
+
+
+
+
+
+Add-Migration InitialData -Context DataDbContext -OutputDir Migrations\Data
+Add-Migration link -Context DataDbContext -OutputDir Migrations\Data
+
+Update-Database -Context DataDbContext
+
