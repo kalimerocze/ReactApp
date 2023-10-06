@@ -51,32 +51,11 @@ export class Employee extends Component {
     }
     sendFormData(e) {
         e.preventDefault();
-        if (this.state.employeeObj.id !== 0) {
-            axios({
-                method: 'put',
-                url: 'https://localhost:44382/api/Employee',
-                data: this.state.employeeObj,
-                withCredentials: true, 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then((res) => {
-                    // Handle success
-                    //console.log(res);
-                })
-                .catch(function (error) {
-                    // Handle error
-                    console.log(error);
-                });
-            return;
-        }
-
         axios({
-            method: 'post',
-            url: 'https://localhost:44382/api/Employee',
+            method: this.state.employeeObj.id !== 0 ? 'put' : 'post',
+            url: this.state.employeeObj.id !== 0 ? `https://localhost:44382/api/employee` : 'https://localhost:44382/api/employee',
             data: this.state.employeeObj,
-            withCredentials: true, // Povolení sCredentials
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             },

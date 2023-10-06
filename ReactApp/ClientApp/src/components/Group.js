@@ -48,29 +48,9 @@ export class Group extends Component {
         var bodyFormData = new FormData();
         bodyFormData.append('Group', this.state.Group);
 
-        if (this.state.Group.id !== 0) {
-            axios({
-                method: 'put',
-                url: 'https://localhost:44382/api/Group',
-                data: this.state.Group,
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then((res) => {
-                    // Handle success
-                })
-                .catch(function (error) {
-                    // Handle error
-                    console.log(error);
-                });
-            return;
-        }
-
         axios({
-            method: 'post',
-            url: 'https://localhost:44382/api/Group',
+            method: this.state.Group.id !== 0 ? 'put' : 'post',
+            url: this.state.Group.id !== 0 ? `https://localhost:44382/api/group` : 'https://localhost:44382/api/group',
             data: this.state.Group,
             withCredentials: true,
             headers: {
