@@ -48,7 +48,7 @@ export class Group extends Component {
         var bodyFormData = new FormData();
         bodyFormData.append('Group', this.state.Group);
 
-        if (this.state.Group !== 0) {
+        if (this.state.Group.id !== 0) {
             axios({
                 method: 'put',
                 url: 'https://localhost:44382/api/Group',
@@ -69,7 +69,7 @@ export class Group extends Component {
         }
 
         axios({
-            method: 'put',
+            method: 'post',
             url: 'https://localhost:44382/api/Group',
             data: this.state.Group,
             withCredentials: true,

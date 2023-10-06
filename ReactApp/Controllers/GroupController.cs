@@ -65,8 +65,8 @@ namespace ReactApp.Controllers
             Logger.LogDebug($"Editace uzivatele");
 
             if (user == null) { return BadRequest(StatusCodes.Status500InternalServerError); }
-            _context.Update(user);
-            await _context.SaveChangesAsync();
+            _appCtx.DbContexts.GetDbContext<ConfigDbContext>("ConfigDb").Update(user);
+            await _appCtx.DbContexts.GetDbContext<ConfigDbContext>("ConfigDb").SaveChangesAsync();
 
             return Ok(StatusCodes.Status200OK);
         }
@@ -77,8 +77,8 @@ namespace ReactApp.Controllers
         {
             var usr = await _appCtx.DbContexts.GetDbContext<ConfigDbContext>("ConfigDb").GroupSets.FindAsync(id);
             if (usr == null) { return BadRequest(StatusCodes.Status500InternalServerError); }
-            _context.Remove(usr);
-            await _context.SaveChangesAsync();
+            _appCtx.DbContexts.GetDbContext<ConfigDbContext>("ConfigDb").Remove(usr);
+            await _appCtx.DbContexts.GetDbContext<ConfigDbContext>("ConfigDb").SaveChangesAsync();
 
             return Ok(StatusCodes.Status200OK);
         }
@@ -89,10 +89,18 @@ namespace ReactApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]  Group user)
         {
-            await _appCtx.DbContexts.GetDbContext<ConfigDbContext>("ConfigDb").GroupSets.AddAsync(user);
-            await _context.SaveChangesAsync();
+            try
+            {
+             await _appCtx.DbContexts.GetDbContext<ConfigDbContext>("ConfigDb").GroupSets.AddAsync(user);
+            await _appCtx.DbContexts.GetDbContext<ConfigDbContext>("ConfigDb").SaveChangesAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             return Ok(user);
         }
-
     }
 }

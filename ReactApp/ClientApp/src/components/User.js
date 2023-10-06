@@ -48,29 +48,9 @@ export class User extends Component {
         var bodyFormData = new FormData();
         bodyFormData.append('user', this.state.user);
 
-        if (this.state.user !== 0) {
-            axios({
-                method: 'put',
-                url: 'https://localhost:44382/api/User',
-                data: this.state.user,
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then((res) => {
-                    // Handle success
-                })
-                .catch(function (error) {
-                    // Handle error
-                    console.log(error);
-                });
-            return;
-        }
-
         axios({
-            method: 'put',
-            url: 'https://localhost:44382/api/User',
+            method: this.state.user.id !== 0 ? 'put' : 'post',
+            url: this.state.user.id !== 0 ? `https://localhost:44382/api/user` : 'https://localhost:44382/api/user',
             data: this.state.user,
             withCredentials: true,
             headers: {
